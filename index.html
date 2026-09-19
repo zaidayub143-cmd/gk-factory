@@ -1,0 +1,1233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>GK Factory — Goalkeeping Coaching Academy, Bangalore</title>
+<meta name="description" content="GK Factory — Elite Goalkeeper Development in Bangalore. Goalkeeping-specific training for Under-9 to Seniors and Women's. Professional coaching, trial classes available." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --pitch: #0b3d2e;
+    --pitch-dark: #06281e;
+    --pitch-deep: #041b14;
+    --lime: #a3e635;
+    --lime-dark: #65a30d;
+    --white: #f4f7f5;
+    --muted: #9db3aa;
+    --card: #0e4a38;
+    --card-2: #0c3f30;
+    --line: rgba(163, 230, 53, 0.18);
+    --radius: 18px;
+    --shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    background: var(--pitch-deep);
+    color: var(--white);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, .display {
+    font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    line-height: 1.05;
+  }
+
+  .container { width: min(1140px, 92%); margin: 0 auto; }
+
+  a { color: inherit; text-decoration: none; }
+  img { max-width: 100%; display: block; }
+
+  /* ---------- Pitch line background ---------- */
+  .pitch-lines {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.5;
+    background:
+      repeating-linear-gradient(90deg, transparent 0 119px, rgba(163,230,53,0.05) 119px 120px),
+      repeating-linear-gradient(0deg, transparent 0 119px, rgba(163,230,53,0.05) 119px 120px);
+  }
+
+  /* ---------- Navbar ---------- */
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(4, 27, 20, 0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 72px;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 800;
+    font-size: 1.35rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .logo-badge {
+    width: 40px; height: 40px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--lime), var(--lime-dark));
+    display: grid;
+    place-items: center;
+    color: var(--pitch-deep);
+    font-size: 1.1rem;
+    font-weight: 800;
+    font-family: 'Barlow Condensed', sans-serif;
+    box-shadow: 0 6px 18px rgba(163, 230, 53, 0.35);
+  }
+
+  .logo span em { color: var(--lime); font-style: normal; }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    list-style: none;
+    font-size: 0.92rem;
+    font-weight: 500;
+  }
+
+  .nav-links a { color: var(--muted); transition: color 0.2s; }
+  .nav-links a:hover { color: var(--lime); }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 22px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 0.92rem;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.2s, background 0.2s;
+  }
+
+  .btn-lime {
+    background: linear-gradient(135deg, var(--lime), var(--lime-dark));
+    color: var(--pitch-deep);
+    box-shadow: 0 8px 24px rgba(163, 230, 53, 0.3);
+  }
+  .btn-lime:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(163, 230, 53, 0.4); }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--white);
+    border: 1.5px solid rgba(244, 247, 245, 0.35);
+  }
+  .btn-ghost:hover { border-color: var(--lime); color: var(--lime); }
+
+  .hamburger {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--white);
+    font-size: 1.6rem;
+    cursor: pointer;
+  }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    position: relative;
+    z-index: 1;
+    min-height: 92vh;
+    display: flex;
+    align-items: center;
+    background:
+      linear-gradient(100deg, rgba(4,27,20,0.97) 0%, rgba(4,27,20,0.82) 45%, rgba(4,27,20,0.35) 100%),
+      url('https://images.unsplash.com/photo-1526232761682-d26e03ac148e?q=80&w=1600&auto=format&fit=crop') center/cover no-repeat,
+      var(--pitch-deep);
+  }
+
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 48px;
+    align-items: center;
+    padding: 80px 0;
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(163, 230, 53, 0.12);
+    border: 1px solid var(--line);
+    color: var(--lime);
+    padding: 8px 16px;
+    border-radius: 100px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 22px;
+  }
+
+  .hero h1 {
+    font-size: clamp(3rem, 7vw, 5.2rem);
+    font-weight: 800;
+    margin-bottom: 18px;
+  }
+
+  .hero h1 .outline {
+    color: transparent;
+    -webkit-text-stroke: 2px var(--lime);
+  }
+
+  .hero p.lead {
+    color: var(--muted);
+    font-size: 1.08rem;
+    max-width: 540px;
+    margin-bottom: 32px;
+  }
+
+  .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 44px; }
+
+  .hero-stats {
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+
+  .stat .num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 2.4rem;
+    font-weight: 800;
+    color: var(--lime);
+    line-height: 1;
+  }
+  .stat .lbl { font-size: 0.82rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
+
+  /* Hero visual */
+  .hero-visual { position: relative; }
+
+  .goal-frame {
+    position: relative;
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--line);
+  }
+
+  .goal-frame img {
+    width: 100%;
+    height: 480px;
+    object-fit: cover;
+  }
+
+  .goal-frame::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 55%, rgba(4,27,20,0.85));
+  }
+
+  .goal-bars {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  .float-card {
+    position: absolute;
+    z-index: 3;
+    background: rgba(6, 40, 30, 0.92);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 14px 18px;
+    backdrop-filter: blur(8px);
+    box-shadow: var(--shadow);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 0.85rem;
+  }
+
+  .float-card .ic {
+    width: 38px; height: 38px;
+    border-radius: 10px;
+    background: rgba(163, 230, 53, 0.15);
+    display: grid;
+    place-items: center;
+    color: var(--lime);
+    font-size: 1.1rem;
+  }
+
+  .float-card b { display: block; font-size: 0.92rem; }
+  .float-card span { color: var(--muted); font-size: 0.78rem; }
+
+  .fc-1 { top: 24px; left: -28px; animation: floaty 5s ease-in-out infinite; }
+  .fc-2 { bottom: 30px; right: -20px; animation: floaty 6s ease-in-out 1s infinite; }
+
+  @keyframes floaty {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+
+  /* ---------- Section base ---------- */
+  section { position: relative; z-index: 1; padding: 96px 0; }
+
+  .sec-head { max-width: 640px; margin-bottom: 52px; }
+
+  .sec-head.center { margin-left: auto; margin-right: auto; text-align: center; }
+
+  .sec-head .tag {
+    color: var(--lime);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .sec-head h2 { font-size: clamp(2.2rem, 4.5vw, 3.2rem); font-weight: 800; }
+  .sec-head p { color: var(--muted); margin-top: 14px; }
+
+  /* ---------- About ---------- */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: 56px;
+    align-items: center;
+  }
+
+  .coach-card {
+    position: relative;
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow);
+  }
+
+  .coach-card img { width: 100%; height: 460px; object-fit: cover; }
+
+  .coach-card .cap {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    padding: 20px 24px;
+    background: linear-gradient(180deg, transparent, rgba(4,27,20,0.95));
+  }
+
+  .coach-card .cap b { font-family: 'Barlow Condensed', sans-serif; font-size: 1.3rem; text-transform: uppercase; letter-spacing: 0.04em; }
+  .coach-card .cap span { color: var(--lime); font-size: 0.85rem; font-weight: 600; }
+
+  .about-copy h2 { font-size: clamp(2.2rem, 4vw, 3rem); margin-bottom: 18px; }
+  .about-copy p { color: var(--muted); margin-bottom: 16px; }
+
+  .creds { display: flex; flex-wrap: wrap; gap: 10px; margin: 22px 0 30px; }
+
+  .cred {
+    background: rgba(163, 230, 53, 0.1);
+    border: 1px solid var(--line);
+    color: var(--lime);
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 8px 14px;
+    border-radius: 100px;
+  }
+
+  .about-points { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+  .point {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    background: var(--card-2);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 16px;
+  }
+
+  .point .ic {
+    flex-shrink: 0;
+    width: 36px; height: 36px;
+    border-radius: 10px;
+    background: rgba(163, 230, 53, 0.14);
+    display: grid;
+    place-items: center;
+    color: var(--lime);
+  }
+
+  .point b { font-size: 0.95rem; display: block; margin-bottom: 2px; }
+  .point span { font-size: 0.82rem; color: var(--muted); }
+
+  /* ---------- Programs ---------- */
+  .programs { background: linear-gradient(180deg, var(--pitch-deep), var(--pitch-dark)); }
+
+  .prog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 22px;
+  }
+
+  .prog-card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 30px 26px;
+    transition: transform 0.2s, border-color 0.2s;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .prog-card:hover { transform: translateY(-6px); border-color: rgba(163, 230, 53, 0.5); }
+
+  .prog-card .ic {
+    width: 52px; height: 52px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, var(--lime), var(--lime-dark));
+    display: grid;
+    place-items: center;
+    color: var(--pitch-deep);
+    font-size: 1.4rem;
+    margin-bottom: 18px;
+  }
+
+  .prog-card h3 { font-size: 1.45rem; margin-bottom: 8px; }
+  .prog-card p { color: var(--muted); font-size: 0.9rem; margin-bottom: 16px; }
+
+  .prog-card ul { list-style: none; margin-bottom: 22px; flex: 1; }
+
+  .prog-card li {
+    font-size: 0.85rem;
+    color: var(--muted);
+    padding: 5px 0 5px 22px;
+    position: relative;
+  }
+
+  .prog-card li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--lime);
+    font-weight: 700;
+  }
+
+  .prog-card .price {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--lime);
+    margin-bottom: 14px;
+  }
+  .prog-card .price small { font-size: 0.8rem; color: var(--muted); font-family: 'Inter', sans-serif; font-weight: 500; }
+
+  .prog-card .btn { justify-content: center; width: 100%; }
+
+  /* ---------- Skills ---------- */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 18px;
+  }
+
+  .skill {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    background: rgba(14, 74, 56, 0.5);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 22px;
+    transition: background 0.2s;
+  }
+
+  .skill:hover { background: var(--card); }
+
+  .skill .ic {
+    flex-shrink: 0;
+    width: 44px; height: 44px;
+    border-radius: 12px;
+    background: rgba(163, 230, 53, 0.12);
+    border: 1px solid var(--line);
+    display: grid;
+    place-items: center;
+    color: var(--lime);
+    font-size: 1.2rem;
+  }
+
+  .skill b { font-size: 1rem; display: block; margin-bottom: 4px; }
+  .skill span { font-size: 0.84rem; color: var(--muted); }
+
+  /* ---------- Testimonials ---------- */
+  .testi { background: linear-gradient(180deg, var(--pitch-dark), var(--pitch-deep)); }
+
+  .testi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 22px;
+  }
+
+  .testi-card {
+    background: var(--card-2);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 28px;
+    position: relative;
+  }
+
+  .testi-card .quote {
+    font-size: 3rem;
+    color: var(--lime);
+    font-family: Georgia, serif;
+    line-height: 0.6;
+    margin-bottom: 14px;
+    display: block;
+  }
+
+  .testi-card p { color: var(--muted); font-size: 0.92rem; margin-bottom: 20px; }
+
+  .testi-card .who { display: flex; align-items: center; gap: 12px; }
+
+  .avatar {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--lime), var(--lime-dark));
+    color: var(--pitch-deep);
+    display: grid;
+    place-items: center;
+    font-weight: 800;
+    font-size: 0.95rem;
+  }
+
+  .testi-card .who b { font-size: 0.92rem; display: block; }
+  .testi-card .who span { font-size: 0.78rem; color: var(--muted); }
+
+  .stars { color: var(--lime); letter-spacing: 2px; font-size: 0.85rem; margin-bottom: 10px; }
+
+  /* ---------- Gallery ---------- */
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+
+  .g-item {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    aspect-ratio: 4 / 3;
+  }
+
+  .g-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
+  .g-item:hover img { transform: scale(1.06); }
+
+  .g-item .cap {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    padding: 30px 16px 12px;
+    background: linear-gradient(180deg, transparent, rgba(4,27,20,0.9));
+    font-size: 0.82rem;
+    font-weight: 600;
+  }
+
+  /* ---------- FAQ ---------- */
+  .faq-list { max-width: 760px; margin: 0 auto; }
+
+  .faq-item {
+    background: var(--card-2);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    margin-bottom: 12px;
+    overflow: hidden;
+  }
+
+  .faq-q {
+    width: 100%;
+    background: none;
+    border: none;
+    color: var(--white);
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: left;
+    padding: 18px 22px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .faq-q .plus { color: var(--lime); font-size: 1.3rem; transition: transform 0.2s; }
+
+  .faq-item.open .plus { transform: rotate(45deg); }
+
+  .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
+  .faq-a p { padding: 0 22px 18px; color: var(--muted); font-size: 0.9rem; }
+
+  /* ---------- Contact ---------- */
+  .contact { background: linear-gradient(180deg, var(--pitch-deep), var(--pitch-dark)); }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: start;
+  }
+
+  .contact-info h2 { font-size: clamp(2.2rem, 4vw, 3rem); margin-bottom: 16px; }
+  .contact-info > p { color: var(--muted); margin-bottom: 30px; }
+
+  .c-row { display: flex; gap: 14px; align-items: flex-start; margin-bottom: 20px; }
+
+  .c-row .ic {
+    flex-shrink: 0;
+    width: 44px; height: 44px;
+    border-radius: 12px;
+    background: rgba(163, 230, 53, 0.12);
+    border: 1px solid var(--line);
+    display: grid;
+    place-items: center;
+    color: var(--lime);
+    font-size: 1.15rem;
+  }
+
+  .c-row b { display: block; font-size: 0.95rem; }
+  .c-row span { color: var(--muted); font-size: 0.88rem; }
+
+  .whatsapp {
+    margin-top: 26px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: #25d366;
+    color: #06281e;
+    font-weight: 700;
+    padding: 14px 24px;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(37, 211, 102, 0.3);
+    transition: transform 0.15s;
+  }
+  .whatsapp:hover { transform: translateY(-2px); }
+
+  form {
+    background: var(--card-2);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 32px;
+    box-shadow: var(--shadow);
+  }
+
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+  .field { margin-bottom: 14px; }
+
+  .field label {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--muted);
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .field input, .field select, .field textarea {
+    width: 100%;
+    background: rgba(4, 27, 20, 0.6);
+    border: 1px solid rgba(244, 247, 245, 0.15);
+    border-radius: 10px;
+    color: var(--white);
+    font-family: inherit;
+    font-size: 0.92rem;
+    padding: 12px 14px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--lime); }
+
+  .field select option { background: var(--pitch-dark); }
+
+  .field textarea { resize: vertical; min-height: 110px; }
+
+  form .btn { width: 100%; justify-content: center; margin-top: 6px; }
+
+  .form-note { font-size: 0.78rem; color: var(--muted); text-align: center; margin-top: 12px; }
+
+  .form-success {
+    display: none;
+    text-align: center;
+    padding: 20px;
+    color: var(--lime);
+    font-weight: 600;
+  }
+
+  /* ---------- Footer ---------- */
+  footer {
+    position: relative;
+    z-index: 1;
+    border-top: 1px solid var(--line);
+    padding: 40px 0;
+    background: var(--pitch-deep);
+  }
+
+  .foot {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+
+  .foot .logo { font-size: 1.1rem; }
+
+  .foot-links { display: flex; gap: 20px; list-style: none; }
+  .foot-links a:hover { color: var(--lime); }
+
+  /* ---------- Reveal animation ---------- */
+  .reveal { opacity: 0; transform: translateY(26px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 900px) {
+    .hero-grid { grid-template-columns: 1fr; padding: 60px 0; }
+    .hero-visual { order: -1; }
+    .goal-frame img { height: 320px; }
+    .fc-1 { left: 8px; }
+    .fc-2 { right: 8px; }
+    .about-grid { grid-template-columns: 1fr; }
+    .contact-grid { grid-template-columns: 1fr; }
+    .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+    .nav-links {
+      position: fixed;
+      top: 72px;
+      left: 0; right: 0;
+      flex-direction: column;
+      background: rgba(4, 27, 20, 0.97);
+      padding: 24px;
+      gap: 18px;
+      border-bottom: 1px solid var(--line);
+      transform: translateY(-130%);
+      transition: transform 0.3s ease;
+    }
+    .nav-links.open { transform: none; }
+    .hamburger { display: block; }
+    .form-row { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 560px) {
+    .gallery-grid { grid-template-columns: 1fr; }
+    .about-points { grid-template-columns: 1fr; }
+    section { padding: 72px 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="pitch-lines"></div>
+
+<!-- ================= NAVBAR ================= -->
+<header>
+  <div class="container nav">
+    <a href="#home" class="logo">
+      <span class="logo-badge">GK</span>
+      <span>GK <em>Factory</em></span>
+    </a>
+    <button class="hamburger" id="hamburger" aria-label="Menu">☰</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#programs">Programs</a></li>
+      <li><a href="#training">Training</a></li>
+      <li><a href="#students">Students</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="#contact" class="btn btn-lime">Free Trial</a></li>
+    </ul>
+  </div>
+</header>
+
+<!-- ================= HERO ================= -->
+<section class="hero" id="home">
+  <div class="container hero-grid">
+    <div>
+      <span class="eyebrow">⚽ Elite Goalkeeper Development · Bangalore</span>
+      <h1>Train <span class="outline">Different.</span><br />Save Different.</h1>
+      <p class="lead">
+        GK Factory is a goalkeeping-specific training academy in Bangalore —
+        training the next generation of keepers. From Under-9 beginners to
+        seniors and women's keepers, every session builds technique, decision
+        making and confidence. Trial classes are open — DM us to join.
+      </p>
+      <div class="hero-ctas">
+        <a href="#contact" class="btn btn-lime">Book a Free Trial</a>
+        <a href="#programs" class="btn btn-ghost">View Programs</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><div class="num">6+</div><div class="lbl">Age Groups</div></div>
+        <div class="stat"><div class="num">500+</div><div class="lbl">Keepers Trained</div></div>
+        <div class="stat"><div class="num">40+</div><div class="lbl">Sessions / Month</div></div>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="goal-frame">
+        <img src="https://images.unsplash.com/photo-1579952363873-27f3bade9f55?q=80&w=1200&auto=format&fit=crop" alt="Goalkeeper making a save" />
+        <svg class="goal-bars" viewBox="0 0 400 480" fill="none" preserveAspectRatio="none">
+          <rect x="30" y="40" width="340" height="300" stroke="rgba(244,247,245,0.85)" stroke-width="6" />
+          <line x1="30" y1="340" x2="30" y2="460" stroke="rgba(244,247,245,0.85)" stroke-width="6" />
+          <line x1="370" y1="340" x2="370" y2="460" stroke="rgba(244,247,245,0.85)" stroke-width="6" />
+          <line x1="30" y1="340" x2="370" y2="340" stroke="rgba(244,247,245,0.85)" stroke-width="6" />
+          <line x1="200" y1="40" x2="200" y2="340" stroke="rgba(244,247,245,0.35)" stroke-width="3" stroke-dasharray="10 10" />
+        </svg>
+      </div>
+      <div class="float-card fc-1">
+        <div class="ic">🧤</div>
+        <div><b>Pro Glove Work</b><span>Shot stopping &amp; handling</span></div>
+      </div>
+      <div class="float-card fc-2">
+        <div class="ic">🎯</div>
+        <div><b>Game-Real Drills</b><span>Pressure situations, every session</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ABOUT ================= -->
+<section id="about">
+  <div class="container about-grid">
+    <div class="coach-card reveal">
+      <img src="https://images.unsplash.com/photo-1553778263-73a83bab9b0c?q=80&w=1000&auto=format&fit=crop" alt="Coach portrait" />
+      <div class="cap">
+        <b>Coach Srijith R</b>
+        <span>Founder &amp; Head Goalkeeping Coach</span>
+      </div>
+    </div>
+    <div class="about-copy reveal">
+      <div class="sec-head" style="margin-bottom: 0;">
+        <div class="tag">About the Academy</div>
+        <h2>Built by a Goalkeeper,<br />for Goalkeepers</h2>
+      </div>
+      <p>
+        Coach Srijith R played as a goalkeeper for a professional football
+        club in the Indian Football League [club name]. After his playing
+        career, he founded GK Factory in Bangalore with one mission: give
+        young goalkeepers the specialised coaching that most club teams
+        simply don't have time to provide.
+      </p>
+      <p>
+        Every session is designed around the real demands of the position —
+        diving technique, footwork, reading the game, and the mental strength
+        to be the last line of defence. Train different. Save different.
+      </p>
+      <div class="creds">
+        <span class="cred">AFC 'C' License</span>
+        <span class="cred">Goalkeeping Diploma</span>
+        <span class="cred">First Aid Certified</span>
+        <span class="cred">Safeguarding Certified</span>
+      </div>
+      <div class="about-points">
+        <div class="point">
+          <div class="ic">🎓</div>
+          <div><b>All Ages &amp; Levels</b><span>Under-9 to Under-17, Seniors &amp; Women's</span></div>
+        </div>
+        <div class="point">
+          <div class="ic">📈</div>
+          <div><b>Measured Progress</b><span>Skill assessments &amp; video feedback</span></div>
+        </div>
+        <div class="point">
+          <div class="ic">🧠</div>
+          <div><b>Mental Toughness</b><span>Confidence, focus &amp; leadership training</span></div>
+        </div>
+        <div class="point">
+          <div class="ic">🤝</div>
+          <div><b>Small Groups</b><span>Max 6 keepers per session — real attention</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PROGRAMS ================= -->
+<section class="programs" id="programs">
+  <div class="container">
+    <div class="sec-head center reveal">
+      <div class="tag">Programs</div>
+      <h2>Choose Your Training Path</h2>
+      <p>Flexible programs designed around your goals, your schedule and your level.</p>
+    </div>
+    <div class="prog-grid">
+      <div class="prog-card reveal">
+        <div class="ic">🥅</div>
+        <h3>1-on-1 Coaching</h3>
+        <p>Personalised sessions focused entirely on your game.</p>
+        <ul>
+          <li>Individual development plan</li>
+          <li>Video analysis included</li>
+          <li>Flexible scheduling</li>
+          <li>All ages &amp; levels</li>
+        </ul>
+        <div class="price">₹[X] <small>/ session</small></div>
+        <a href="#contact" class="btn btn-lime">Enquire Now</a>
+      </div>
+      <div class="prog-card reveal">
+        <div class="ic">👥</div>
+        <h3>Group Academy</h3>
+        <p>Weekly squad sessions for every age group.</p>
+        <ul>
+          <li>Under-9 · Under-13 · Under-15 · Under-17</li>
+          <li>Seniors &amp; Women's groups</li>
+          <li>Weekly structured curriculum</li>
+          <li>Match-style scenarios</li>
+        </ul>
+        <div class="price">₹[X] <small>/ month</small></div>
+        <a href="#contact" class="btn btn-lime">Enquire Now</a>
+      </div>
+      <div class="prog-card reveal">
+        <div class="ic">🏕️</div>
+        <h3>Holiday Camps</h3>
+        <p>Intensive multi-day camps during school breaks.</p>
+        <ul>
+          <li>2–5 day intensive camps</li>
+          <li>All techniques covered</li>
+          <li>Fun games &amp; competitions</li>
+          <li>Certificates for all</li>
+        </ul>
+        <div class="price">₹[X] <small>/ camp</small></div>
+        <a href="#contact" class="btn btn-lime">Enquire Now</a>
+      </div>
+      <div class="prog-card reveal">
+        <div class="ic">🏫</div>
+        <h3>Club &amp; School</h3>
+        <p>Specialist GK coaching for teams, clubs and schools.</p>
+        <ul>
+          <li>On-site coaching visits</li>
+          <li>Team GK development plans</li>
+          <li>Coach workshops</li>
+          <li>Season-long support</li>
+        </ul>
+        <div class="price">Custom <small>quote</small></div>
+        <a href="#contact" class="btn btn-ghost">Get a Quote</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= TRAINING / SKILLS ================= -->
+<section id="training">
+  <div class="container">
+    <div class="sec-head center reveal">
+      <div class="tag">What We Train</div>
+      <h2>The Complete Goalkeeper</h2>
+      <p>Technical, tactical, physical and mental — we cover every part of the position.</p>
+    </div>
+    <div class="skills-grid">
+      <div class="skill reveal">
+        <div class="ic">🧤</div>
+        <div><b>Shot Stopping</b><span>Diving technique, handling, parrying &amp; reflexes</span></div>
+      </div>
+      <div class="skill reveal">
+        <div class="ic">🦶</div>
+        <div><b>Footwork &amp; Agility</b><span>Set position, shuffling, explosive first steps</span></div>
+      </div>
+      <div class="skill reveal">
+        <div class="ic">☁️</div>
+        <div><b>Crosses &amp; High Balls</b><span>Judgement, timing, catching under pressure</span></div>
+      </div>
+      <div class="skill reveal">
+        <div class="ic">🎯</div>
+        <div><b>Distribution</b><span>Throws, kicks, and starting attacks with composure</span></div>
+      </div>
+      <div class="skill reveal">
+        <div class="ic">⚡</div>
+        <div><b>1v1 Situations</b><span>Closing down, spread saves, reading the striker</span></div>
+      </div>
+      <div class="skill reveal">
+        <div class="ic">📣</div>
+        <div><b>Communication &amp; Leadership</b><span>Organising the defence, commanding the box</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= STUDENTS / TESTIMONIALS ================= -->
+<section class="testi" id="students">
+  <div class="container">
+    <div class="sec-head center reveal">
+      <div class="tag">Students &amp; Parents</div>
+      <h2>What They Say</h2>
+      <p>Real words from the keepers we train and the parents who trust us.</p>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card reveal">
+        <span class="quote">“</span>
+        <div class="stars">★★★★★</div>
+        <p>My son's confidence as a goalkeeper has completely changed. The coach
+        understands the position inside out and the small group size means he
+        actually gets attention every session.</p>
+        <div class="who">
+          <div class="avatar">RS</div>
+          <div><b>Rahul S.</b><span>Parent — U-14 keeper</span></div>
+        </div>
+      </div>
+      <div class="testi-card reveal">
+        <span class="quote">“</span>
+        <div class="stars">★★★★★</div>
+        <p>I trained with my club for two years and never got proper goalkeeping
+        coaching. Three months here and I've improved more than in those two
+        years. The video analysis is a game changer.</p>
+        <div class="who">
+          <div class="avatar">AK</div>
+          <div><b>Arjun K.</b><span>U-17 keeper</span></div>
+        </div>
+      </div>
+      <div class="testi-card reveal">
+        <span class="quote">“</span>
+        <div class="stars">★★★★★</div>
+        <p>Our school team's goalkeeper went from being the weakest link to our
+        best player. We now send all our keepers to the academy every season.</p>
+        <div class="who">
+          <div class="avatar">PM</div>
+          <div><b>P. Mehta</b><span>School Football Coach</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= GALLERY ================= -->
+<section id="gallery">
+  <div class="container">
+    <div class="sec-head center reveal">
+      <div class="tag">Gallery</div>
+      <h2>Inside Our Sessions</h2>
+      <p>Replace these placeholders with real photos from training.</p>
+    </div>
+    <div class="gallery-grid">
+      <div class="g-item reveal">
+        <img src="https://images.unsplash.com/photo-1517466787929-bc90951d0974?q=80&w=900&auto=format&fit=crop" alt="Training session" />
+        <div class="cap">Diving drills</div>
+      </div>
+      <div class="g-item reveal">
+        <img src="https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?q=80&w=900&auto=format&fit=crop" alt="Football on pitch" />
+        <div class="cap">Match day</div>
+      </div>
+      <div class="g-item reveal">
+        <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80&w=900&auto=format&fit=crop" alt="Player training" />
+        <div class="cap">1v1 sessions</div>
+      </div>
+      <div class="g-item reveal">
+        <img src="https://images.unsplash.com/photo-1522778119026-d647f0596c20?q=80&w=900&auto=format&fit=crop" alt="Stadium" />
+        <div class="cap">Holiday camps</div>
+      </div>
+      <div class="g-item reveal">
+        <img src="https://images.unsplash.com/photo-1517927033932-b3d18e61fb3a?q=80&w=900&auto=format&fit=crop" alt="Football" />
+        <div class="cap">Glove work</div>
+      </div>
+      <div class="g-item reveal">
+        <img src="https://images.unsplash.com/photo-1553778263-73a83bab9b0c?q=80&w=900&auto=format&fit=crop" alt="Coaching" />
+        <div class="cap">Group training</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FAQ ================= -->
+<section id="faq">
+  <div class="container">
+    <div class="sec-head center reveal">
+      <div class="tag">FAQ</div>
+      <h2>Common Questions</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item reveal">
+        <button class="faq-q">How do I join GK Factory? <span class="plus">+</span></button>
+        <div class="faq-a"><p>DM us on Instagram (@gk1factory_india) or join our WhatsApp group — the link is in the contact section. Trial slots are available, so you can experience a session before committing.</p></div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q">What age groups do you train? <span class="plus">+</span></button>
+        <div class="faq-a"><p>We run dedicated groups for Under-9, Under-13, Under-15, Under-17, Seniors and Women's goalkeepers.</p></div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q">Do I need my own equipment? <span class="plus">+</span></button>
+        <div class="faq-a"><p>Bring your own gloves, boots and shin guards. We provide all training balls, cones and equipment.</p></div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q">Is there a free trial session? <span class="plus">+</span></button>
+        <div class="faq-a"><p>Yes! Trial classes are open — DM us on Instagram to book your trial slot and get further details.</p></div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q">Where do sessions take place? <span class="plus">+</span></button>
+        <div class="faq-a"><p>All sessions are held in Bangalore. The exact ground / turf location is shared when you join the WhatsApp group.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CONTACT ================= -->
+<section class="contact" id="contact">
+  <div class="container contact-grid">
+    <div class="contact-info reveal">
+      <div class="tag">Contact Us</div>
+      <h2>Start Your<br />Goalkeeping Journey</h2>
+      <p>Book a free trial session or ask us anything — we usually reply within a day.</p>
+
+      <div class="c-row">
+        <div class="ic">📞</div>
+        <div><b>WhatsApp Group</b><span>Join the GK Factory community — link below</span></div>
+      </div>
+      <div class="c-row">
+        <div class="ic">📸</div>
+        <div><b>Instagram</b><span>@gk1factory_india — DM to join</span></div>
+      </div>
+      <div class="c-row">
+        <div class="ic">📍</div>
+        <div><b>Training Location</b><span>Bangalore [ground / turf name]</span></div>
+      </div>
+      <div class="c-row">
+        <div class="ic">🕐</div>
+        <div><b>Session Timings</b><span>Weekdays 5–8 PM · Weekends 7 AM–12 PM</span></div>
+      </div>
+
+      <a class="whatsapp" href="https://chat.whatsapp.com/ElD2SEynBcy9fhiR3WORyZ" target="_blank" rel="noopener">
+        💬 Join WhatsApp Group
+      </a>
+      <a class="whatsapp" style="background:#e1306c; color:#fff; box-shadow:0 8px 24px rgba(225,48,108,0.3); margin-left:10px;" href="https://www.instagram.com/gk1factory_india" target="_blank" rel="noopener">
+        📸 Follow on Instagram
+      </a>
+    </div>
+
+    <form id="contactForm" class="reveal" novalidate>
+      <div class="form-row">
+        <div class="field">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" placeholder="Your name" required />
+        </div>
+        <div class="field">
+          <label for="phone">Phone</label>
+          <input type="tel" id="phone" name="phone" placeholder="+91 XXXXX XXXXX" required />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="field">
+          <label for="email">Email (optional)</label>
+          <input type="email" id="email" name="email" placeholder="you@email.com" />
+        </div>
+        <div class="field">
+          <label for="age">Age Group</label>
+          <select id="age" name="age">
+            <option>Under 10</option>
+            <option>Under 13</option>
+            <option>Under 16</option>
+            <option>Under 19</option>
+            <option>Adult / Senior</option>
+          </select>
+        </div>
+      </div>
+      <div class="field">
+        <label for="program">Interested In</label>
+        <select id="program" name="program">
+          <option>1-on-1 Coaching</option>
+          <option>Group Academy</option>
+          <option>Holiday Camp</option>
+          <option>Club / School Partnership</option>
+          <option>Free Trial Session</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="message">Message</label>
+        <textarea id="message" name="message" placeholder="Tell us about the keeper — age, experience, goals..."></textarea>
+      </div>
+      <button type="submit" class="btn btn-lime">Send Enquiry →</button>
+      <div class="form-note">Prototype form — connect to WhatsApp/Instagram DM when going live.</div>
+      <div class="form-success" id="formSuccess">✅ Thanks! Your enquiry has been sent. We'll get back to you soon.</div>
+    </form>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div class="container foot">
+    <a href="#home" class="logo">
+      <span class="logo-badge">GK</span>
+      <span>GK <em>Factory</em></span>
+    </a>
+    <ul class="foot-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#programs">Programs</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="https://www.instagram.com/gk1factory_india" target="_blank" rel="noopener">Instagram</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <span>© 2026 GK Factory. All rights reserved.</span>
+  </div>
+</footer>
+
+<script>
+  // Mobile menu
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('navLinks');
+  hamburger.addEventListener('click', () => navLinks.classList.toggle('open'));
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+
+  // FAQ accordion
+  document.querySelectorAll('.faq-item').forEach(item => {
+    const q = item.querySelector('.faq-q');
+    const a = item.querySelector('.faq-a');
+    q.addEventListener('click', () => {
+      const open = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => {
+        i.classList.remove('open');
+        i.querySelector('.faq-a').style.maxHeight = null;
+      });
+      if (!open) {
+        item.classList.add('open');
+        a.style.maxHeight = a.scrollHeight + 'px';
+      }
+    });
+  });
+
+  // Scroll reveal
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Contact form (prototype — shows success message)
+  const form = document.getElementById('contactForm');
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    form.querySelector('.btn').style.display = 'none';
+    form.querySelector('.form-note').style.display = 'none';
+    document.getElementById('formSuccess').style.display = 'block';
+  });
+</script>
+
+</body>
+</html>
