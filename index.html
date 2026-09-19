@@ -5,6 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>GK Factory — Goalkeeping Coaching Academy, Bangalore</title>
 <meta name="description" content="GK Factory — Elite Goalkeeper Development in Bangalore. Goalkeeping-specific training for Under-9 to Seniors and Women's. Professional coaching, trial classes available." />
+<link rel="manifest" href="/gk-factory/manifest.json" />
+<meta name="theme-color" content="#0b3d2e" />
+<link rel="apple-touch-icon" href="/gk-factory/icons/icon-180.png" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="GK Factory" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -1226,6 +1232,42 @@
     form.querySelector('.btn').style.display = 'none';
     form.querySelector('.form-note').style.display = 'none';
     document.getElementById('formSuccess').style.display = 'block';
+  });
+
+  // ---------- PWA ----------
+  // Service worker registration (offline + installability)
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/gk-factory/sw.js').catch(() => {});
+    });
+  }
+
+  // Install App button — appears only when the browser offers installation
+  let deferredPrompt = null;
+  const installBtn = document.createElement('a');
+  installBtn.href = '#';
+  installBtn.className = 'btn btn-lime';
+  installBtn.style.cssText = 'position:fixed;bottom:20px;right:20px;z-index:200;box-shadow:0 10px 30px rgba(0,0,0,0.5);display:none;';
+  installBtn.innerHTML = '📲 Install App';
+  document.body.appendChild(installBtn);
+
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    installBtn.style.display = 'inline-flex';
+  });
+
+  installBtn.addEventListener('click', async (e) => {
+    e.preventDefault();
+    if (!deferredPrompt) return;
+    deferredPrompt.prompt();
+    await deferredPrompt.userChoice;
+    deferredPrompt = null;
+    installBtn.style.display = 'none';
+  });
+
+  window.addEventListener('appinstalled', () => {
+    installBtn.style.display = 'none';
   });
 </script>
 

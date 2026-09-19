@@ -1,0 +1,31 @@
+{
+  "name": "GK Factory — Goalkeeping Coaching Academy",
+  "short_name": "GK Factory",
+  "description": "Elite Goalkeeper Development in Bangalore. Training the next generation of keepers. Under-9 to Seniors and Women's.",
+  "start_url": "/gk-factory/",
+  "scope": "/gk-factory/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#041b14",
+  "theme_color": "#0b3d2e",
+  "icons": [
+    {
+      "src": "/gk-factory/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/gk-factory/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/gk-factory/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
